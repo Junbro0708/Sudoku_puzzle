@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        td{
+            width: 40px;
+            height: 40px;
+            border: solid 1px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table></table>
+    <h2></h2>
+</body>
+<script>
+    let size, values;
+    let clickedItem;
+    let h2EL = document.querySelector("h2");
+
+    let tablePop = (values) => {
+        const table = document.querySelector("table");
+        for(let rowidx in values){
+            let tr = document.createElement("tr");
+            for(let colIdx in values[rowidx]){
+                let td = document.createElement("td");
+                td.innerHTML = values[rowidx][colIdx];
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+    }
+
+    let loadJson = () =>{
+        const xmlHTTP = new XMLHttpRequest();
+        xmlHTTP.onload = function(){
+            let output = JSON.parse(this.responseText)[0]; //You can change the puzzle with an index
+            size = output.size;
+            values = output.values;
+            tablePop(values);
+            checkSudoku(size, values);
+            designSudoku(size);
+        }
+        xmlHTTP.open("GET","./source.json",true);
+        xmlHTTP.send();
+    }
+    loadJson();
+
+    // Check validate Columns
+    function checkValColumns(columnIdx, sudokuArray, size){
+        let nums = new Array();
+        for(let i = 0; i < size; i++){
+            if(sudokuArray[columnIdx][i] != 0){
+                if(nums.includes(sudokuArray[columnIdx][i])){
+                    return true;
+                }else{
+                    nums.push(sudokuArray[columnIdx][i])
+                }
+            }
+        }
+        return false;
+    }
+    
+    //Check validate Rows
+    function checkValRows(rowIdx, sudokuArray, size){
+        let nums = new Array();
+        for(let i = 0; i < size; i++){
+            if(sudokuArray[i][rowIdx] != 0){
+                if(nums.includes(sudokuArray[i][rowIdx])){
+                    return true;
+                }else{
+                    nums.push(sudokuArray[i][rowIdx]);
+                }
+            }
+        }
+        return false;
+    }
+
+    // Check validate Boxes
+    function checkValBoxes(columnIdx, rowIdx, sudokuArray, size){
+        boxXIdx = Math.floor(columnIdx / Math.sqrt(size));
+        boxYIdx = Math.floor(rowIdx / Math.sqrt(size));
+        let nums = new Array();
+        for(let i = 0; i < Math.sqrt(size); i++){
+            for(let j = 0; j < Math.sqrt(size); j++){
+                let x = i + (Math.sqrt(size) * boxXIdx);
+                let y = j + (Math.sqrt(size) * boxYIdx);
+                if(sudokuArray[x][y] != 0){
+                    if(nums.includes(sudokuArray[x][y])){
+                        return true;
+                    }else{
+                        nums.push(sudokuArray[x][y]);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // Check All validate (Columns, Rows, Boxes)
+    function checkAllValidate(columnIdx, rowIdx, sudokuArray, size){
+        if(checkValColumns(columnIdx, sudokuArray, size)){
+            return true;
+        }
+        if(checkValRows(rowIdx, sudokuArray, size)){
+            return true;
+        }
+        if(checkValBoxes(columnIdx, rowIdx, sudokuArray, size)){
+            return true;
+        }
+        return false;
+    }
+
+    // Check if the array is right
+    function checkSudoku(size, sudokuArray){
+        let flag = false;
+        for(let i = 0; i < sudokuArray.length; i++){
+            for(let j = 0; j < sudokuArray.length; j++){
+                if(checkAllValidate(i, j, sudokuArray, size)){
+                    h2EL.innerText = "This is wrong sudoku puzzle.";
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag) break;
+        }
+        if(!flag) h2EL.innerText = "This is the answer of the puzzle.";
+    }
+
+    // design looking like more sudoku
+    function designSudoku(size){
+        let sudoku = document.querySelector("table").children;
+        let tempRow = 1;
+        let tempCol = 1;
+        for(let i = 0; i < sudoku.length; i++){
+            if((tempRow == Math.sqrt(size)) && i != sudoku.length-1){
+                for(let j = 0; j < sudoku[i].children.length; j++){
+                    sudoku[i].children[j].style.borderBottom = "solid 5px black";
+                }
+                tempRow = 0;
+            }
+            for(let j = 0; j < sudoku[i].children.length; j++){
+                if((tempCol == Math.sqrt(size)) && j != sudoku.length-1){
+                    sudoku[i].children[j].style.borderRight = "solid 5px black";
+                    tempCol = 0;
+                }
+                tempCol++;
+            }
+            tempCol = 1;
+            tempRow++;
+        }
+    }
+</script>
+</html>
