@@ -57,7 +57,6 @@
             for(let i = 0; i < randomColor.length; i++){
             randomColor[i] = "#" + Math.floor(Math.random()*16777215).toString(16);
             }
-
             designSudoku(size);
         }
         xmlHTTP.open("GET","./source.json",true);
@@ -68,37 +67,39 @@
     // Check validate Columns
     function checkValColumns(columnIdx, sudokuArray, size){
         let nums = new Map();
+        let flag = false;
         for(let i = 0; i < size; i++){
             if(sudokuArray[columnIdx][i] != 0){
                 if(nums.has(sudokuArray[columnIdx][i])){
-                    // console.log(sudokuArray[columnIdx][i], nums.get(sudokuArray[columnIdx][i]));
                     wrongIdx.set(`${nums.get(sudokuArray[columnIdx][i]).columnIdx},${nums.get(sudokuArray[columnIdx][i]).i}`, sudokuArray[columnIdx][i]);
                     wrongIdx.set(`${columnIdx},${i}`, sudokuArray[columnIdx][i]);
-                    return true;
+                    flag = true;
                 }else{
                     nums.set(sudokuArray[columnIdx][i], {columnIdx, i})
                 }
             }
         }
-        return false;
+        if(flag) return true;
+        else return false;
     }
     
     //Check validate Rows
     function checkValRows(rowIdx, sudokuArray, size){
         let nums = new Map();
+        let flag = false;
         for(let i = 0; i < size; i++){
             if(sudokuArray[i][rowIdx] != 0){
                 if(nums.has(sudokuArray[i][rowIdx])){
-                    // console.log(sudokuArray[i][rowIdx], nums.get(sudokuArray[i][rowIdx]));
                     wrongIdx.set(`${nums.get(sudokuArray[i][rowIdx]).i},${nums.get(sudokuArray[i][rowIdx]).rowIdx}`, sudokuArray[i][rowIdx]);
                     wrongIdx.set(`${i},${rowIdx}`, sudokuArray[i][rowIdx]);
-                    return true;
+                    flag = true;
                 }else{
                     nums.set(sudokuArray[i][rowIdx], {i, rowIdx});
                 }
             }
         }
-        return false;
+        if(flag) return true;
+        else return false;
     }
 
     // Check validate Boxes
@@ -106,37 +107,40 @@
         boxXIdx = Math.floor(columnIdx / Math.sqrt(size));
         boxYIdx = Math.floor(rowIdx / Math.sqrt(size));
         let nums = new Map();
+        let flag = false;
         for(let i = 0; i < Math.sqrt(size); i++){
             for(let j = 0; j < Math.sqrt(size); j++){
                 let x = i + (Math.sqrt(size) * boxXIdx);
                 let y = j + (Math.sqrt(size) * boxYIdx);
                 if(sudokuArray[x][y] != 0){
                     if(nums.has(sudokuArray[x][y])){
-                        // console.log(sudokuArray[x][y], nums.get(sudokuArray[x][y]));
                         wrongIdx.set(`${nums.get(sudokuArray[x][y]).x},${nums.get(sudokuArray[x][y]).y}`, sudokuArray[x][y]);
                         wrongIdx.set(`${x},${y}`, sudokuArray[x][y]);
-                        return true;
+                        flag = true;
                     }else{
                         nums.set(sudokuArray[x][y], {x, y});
                     }
                 }
             }
         }
-        return false;
+        if(flag) return true;
+        else return false;
     }
 
     // Check All validate (Columns, Rows, Boxes)
     function checkAllValidate(columnIdx, rowIdx, sudokuArray, size){
+        let flag = false;
         if(checkValColumns(columnIdx, sudokuArray, size)){
-            return true;
+            flag = true;
         }
         if(checkValRows(rowIdx, sudokuArray, size)){
-            return true;
+            flag = true;
         }
         if(checkValBoxes(columnIdx, rowIdx, sudokuArray, size)){
-            return true;
+            flag = true;
         }
-        return false;
+        if(flag) return true;
+        else return false;
     }
 
     // Check if the array is right
@@ -147,10 +151,8 @@
                 if(checkAllValidate(i, j, sudokuArray, size)){
                     h2EL.innerText = "This is wrong sudoku puzzle.";
                     flag = true;
-                    // break;
                 }
             }
-            // if(flag) break;
         }
         console.log(wrongIdx);
         if(!flag) h2EL.innerText = "This is the answer of the puzzle.";
