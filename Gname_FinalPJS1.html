@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
         body{
@@ -17,6 +18,12 @@
             border: solid 1px;
             border-collapse: collapse;
             text-align: center;
+        }
+        .active{
+            background-color: skyblue;
+        }
+        .not-active{
+            background-color: white;
         }
     </style>
 </head>
@@ -187,6 +194,25 @@
             sudoku[x].children[y].style.backgroundColor = randomColor[val-1];
         })
     }
+
+    $(document).ready(function(){
+        let table = $("table");
+        // console.log(table)
+        $("table").on('click', "td", function(){
+            let col = $(this).index();
+            let allTr = $("table tr");
+            $(allTr.children()).removeClass("active");
+            $("table tr").removeClass("active");
+            // let tbSize = Math.sqrt(allTr.length)
+            // let currentRow = $(this).parent().index();
+            // let currentCol = $(this).index();
+            // console.log($(table.children()[1]).children()[0])
+            allTr.each(function(idx, elem){ //loop trough all tr and put active class to the td's in the active column
+                $($(this).children()[col]).toggleClass("active");
+            })
+            $(this).parent().toggleClass("active");
+        })
+    });
 
 </script>
 </html>
