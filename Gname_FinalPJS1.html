@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
         body{
             display: flex;
@@ -23,6 +24,13 @@
 <body>
     <table></table>
     <h2></h2>
+    <div>
+        <button id="checkrow">Check the wrong Row</button>
+        <button id="checkcol">Check the wrong Column</button>
+        <button id="checkrowcol">Check the wrong Row & Column</button>
+        <button id="checkidx">Check the wrong indexs</button>
+        <button id="reset">Reset</button>
+    </div>
 </body>
 <script>
     let size, values;
@@ -56,9 +64,6 @@
             checkSudoku(size, values);
 
             designSudoku(size);
-            // checkExactIndexs(size);
-            // checkExactCol(size);
-            // checkExactRow(size);
         }
         xmlHTTP.open("GET","./source.json",true);
         xmlHTTP.send();
@@ -218,7 +223,35 @@
             }
         })
     }
+    function initialize(size){
+        let sudoku = document.querySelector("table").children;
+        for(let i = 0; i < size; i ++){
+            for(let j = 0; j < size; j++){
+                sudoku[i].children[j].style.backgroundColor = "white";
+            }
+        }
+    }
     
-    
+    //Button
+    $("#checkrow").on("click", ()=>{
+        initialize(size);
+        checkExactRow(size);
+    })
+    $("#checkcol").on("click", ()=>{
+        initialize(size);
+        checkExactCol(size);
+    })
+    $("#checkrowcol").on("click", ()=>{
+        initialize(size);
+        checkExactRow(size);
+        checkExactCol(size);
+    })
+    $("#checkidx").on("click", ()=>{
+        initialize(size);
+        checkExactIndexs(size);
+    })
+    $("#reset").on("click", ()=>{
+        initialize(size);
+    })
 </script>
 </html>
