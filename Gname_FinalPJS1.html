@@ -23,8 +23,9 @@
 </head>
 <body>
     <table></table>
-    <h2></h2>
-    <div>
+    <button id="validate">Validate</button>
+    <h2 style="display: none;"></h2>
+    <div class="checkbtns" style="display: none;">
         <button id="checkrow">Check the wrong Row</button>
         <button id="checkcol">Check the wrong Column</button>
         <button id="checkrowcol">Check the wrong Row & Column</button>
@@ -34,7 +35,6 @@
 </body>
 <script>
     let size, values;
-    let clickedItem;
     let h2EL = document.querySelector("h2");
     let randomColor;
     let wrongIdx = new Map();
@@ -233,6 +233,18 @@
     }
     
     //Button
+    $("#validate").on("click", (e)=>{
+        $(h2EL).css("display", "block");
+        switch($(h2EL).text()){
+            case "This is the answer of the puzzle.":
+                $($(".checkbtns")[0]).css("display", "none");
+            break;
+            case "This is wrong sudoku puzzle.":
+                $($(".checkbtns")[0]).css("display", "block");
+            break;
+        }
+        $(e.target).attr("disabled", true);
+    })
     $("#checkrow").on("click", ()=>{
         initialize(size);
         checkExactRow(size);
