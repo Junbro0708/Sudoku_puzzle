@@ -28,8 +28,10 @@
     let size, values;
     let clickedItem;
     let h2EL = document.querySelector("h2");
-    let wrongIdx = new Map();
     let randomColor;
+    let wrongIdx = new Map();
+    let wrongRow = new Set();
+    let wrongCol = new Set();
 
     let tablePop = (values) => {
         const table = document.querySelector("table");
@@ -53,11 +55,10 @@
             tablePop(values);
             checkSudoku(size, values);
 
-            randomColor = new Array(size);
-            for(let i = 0; i < randomColor.length; i++){
-            randomColor[i] = "#" + Math.floor(Math.random()*16777215).toString(16);
-            }
             designSudoku(size);
+            // checkExactIndexs(size);
+            // checkExactCol(size);
+            // checkExactRow(size);
         }
         xmlHTTP.open("GET","./source.json",true);
         xmlHTTP.send();
@@ -73,6 +74,7 @@
                 if(nums.has(sudokuArray[columnIdx][i])){
                     wrongIdx.set(`${nums.get(sudokuArray[columnIdx][i]).columnIdx},${nums.get(sudokuArray[columnIdx][i]).i}`, sudokuArray[columnIdx][i]);
                     wrongIdx.set(`${columnIdx},${i}`, sudokuArray[columnIdx][i]);
+                    wrongCol.add(columnIdx);
                     flag = true;
                 }else{
                     nums.set(sudokuArray[columnIdx][i], {columnIdx, i})
@@ -92,6 +94,7 @@
                 if(nums.has(sudokuArray[i][rowIdx])){
                     wrongIdx.set(`${nums.get(sudokuArray[i][rowIdx]).i},${nums.get(sudokuArray[i][rowIdx]).rowIdx}`, sudokuArray[i][rowIdx]);
                     wrongIdx.set(`${i},${rowIdx}`, sudokuArray[i][rowIdx]);
+                    wrongRow.add(rowIdx);
                     flag = true;
                 }else{
                     nums.set(sudokuArray[i][rowIdx], {i, rowIdx});
@@ -181,6 +184,16 @@
             tempRow++;
         }
 
+
+    }
+    
+    //Check exact indexs for the wrong numbers
+    function checkExactIndexs(size){
+        randomColor = new Array(size);
+            for(let i = 0; i < randomColor.length; i++){
+            randomColor[i] = "#" + Math.floor(Math.random()*16777215).toString(16);
+            }
+        let sudoku = document.querySelector("table").children;
         wrongIdx.forEach((val, idx)=>{
             let x = idx.split(",")[0];
             let y = idx.split(",")[1];
@@ -188,5 +201,24 @@
         })
     }
 
+    //Check exact Column and Row for the wrong numbers
+    function checkExactCol(size){
+        let sudoku = document.querySelector("table").children;
+        wrongCol.forEach((val)=>{
+            for(let i = 0; i < size; i++){
+                sudoku[val].children[i].style.backgroundColor = "red";
+            }
+        })
+    }
+    function checkExactRow(size){
+        let sudoku = document.querySelector("table").children;
+        wrongRow.forEach((val)=>{
+            for(let i = 0; i < size; i++){
+                sudoku[i].children[val].style.backgroundColor = "red";
+            }
+        })
+    }
+    
+    
 </script>
 </html>
