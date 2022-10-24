@@ -28,7 +28,8 @@
     <div class="checkbtns" style="display: none;">
         <button id="checkrow">Check the wrong Row</button>
         <button id="checkcol">Check the wrong Column</button>
-        <button id="checkrowcol">Check the wrong Row & Column</button>
+        <button id="checkbox">Check the wrong Box</button>
+        <button id="checkrowcolbox">Check the wrong Row & Column & Box</button>
         <button id="checkidx">Check the wrong indexs</button>
         <button id="reset">Reset</button>
     </div>
@@ -40,6 +41,7 @@
     let wrongIdx = new Map();
     let wrongRow = new Set();
     let wrongCol = new Set();
+    let wrongBox = new Set();
 
     let tablePop = (values) => {
         const table = document.querySelector("table");
@@ -57,7 +59,7 @@
     let loadJson = () =>{
         const xmlHTTP = new XMLHttpRequest();
         xmlHTTP.onload = function(){
-            let output = JSON.parse(this.responseText)[1]; //You can change the puzzle with an index
+            let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
             size = output.size;
             values = output.values;
             tablePop(values);
@@ -124,6 +126,7 @@
                     if(nums.has(sudokuArray[x][y])){
                         wrongIdx.set(`${nums.get(sudokuArray[x][y]).x},${nums.get(sudokuArray[x][y]).y}`, sudokuArray[x][y]);
                         wrongIdx.set(`${x},${y}`, sudokuArray[x][y]);
+                        wrongBox.add({x, y})
                         flag = true;
                     }else{
                         nums.set(sudokuArray[x][y], {x, y});
@@ -162,7 +165,6 @@
                 }
             }
         }
-        console.log(wrongIdx);
         if(!flag) h2EL.innerText = "This is the answer of the puzzle.";
     }
 
@@ -223,6 +225,20 @@
             }
         })
     }
+    function checkExactBox(size){
+        let sudoku = document.querySelector("table").children;
+        wrongBox.forEach((val)=>{
+            boxXIdx = Math.floor(val.x / Math.sqrt(size));
+            boxYIdx = Math.floor(val.y / Math.sqrt(size));
+            for(let i = 0; i < Math.sqrt(size); i++){
+                for(let j = 0; j < Math.sqrt(size); j++){
+                    let x = i + (Math.sqrt(size) * boxXIdx);
+                    let y = j + (Math.sqrt(size) * boxYIdx);
+                    sudoku[x].children[y].style.backgroundColor = "red";
+                }
+            }
+        })
+    }
     function initialize(size){
         let sudoku = document.querySelector("table").children;
         for(let i = 0; i < size; i ++){
@@ -253,10 +269,15 @@
         initialize(size);
         checkExactCol(size);
     })
-    $("#checkrowcol").on("click", ()=>{
+    $("#checkbox").on("click", ()=>{
+        initialize(size);
+        checkExactBox(size);
+    })
+    $("#checkrowcolbox").on("click", ()=>{
         initialize(size);
         checkExactRow(size);
         checkExactCol(size);
+        checkExactBox(size);
     })
     $("#checkidx").on("click", ()=>{
         initialize(size);
