@@ -60,6 +60,9 @@
             tablePop(values);
             checkSudoku(size, values);
 
+            validateRowMath(values);
+            validateColMath(values);
+
             randomColor = new Array(size);
             for(let i = 0; i < randomColor.length; i++){
             randomColor[i] = "#" + Math.floor(Math.random()*16777215).toString(16);
@@ -195,18 +198,48 @@
         })
     }
 
+    function validateRowMath(values){
+        let checkSet = new Set();
+        let sudokuStatus = true;
+        for(let iRow = 0; iRow < values.length; iRow++){ //loop in rows
+            checkSet.clear() //Clear set when all numbers in row were checked.
+            for(let iCol = 0; iCol < values.length; iCol++){ //loop in columns
+                if(checkSet.has(values[iRow][iCol])){
+                    console.log(`Number ${values[iRow][iCol]} is repeated in row. Position: Row - ${iRow} | Column - ${iCol}`);
+                    sudokuStatus = false;
+                }else{
+                    checkSet.add(values[iRow][iCol]);
+                }
+            }
+        }
+        if(sudokuStatus){console.log("No errors in Columns.")};
+    }
+
+    function validateColMath(values){
+        let checkSet = new Set();
+        let sudokuStatus = true;
+        for(let iCol = 0; iCol < values.length; iCol++){ //loop in columns
+            checkSet.clear() //Clear set when all numbers in column were checked.
+            for(let iRow = 0; iRow < values.length; iRow++){ //loop in rows
+                if(checkSet.has(values[iRow][iCol])){
+                    console.log(`Number ${values[iRow][iCol]} is repeated in column. Position: Row - ${iRow} | Column - ${iCol}`);
+                    sudokuStatus = false;
+                }else{
+                    checkSet.add(values[iRow][iCol]);
+                }
+            }
+        };
+        if(sudokuStatus){console.log("No errors in Columns.")};
+    }
+
     $(document).ready(function(){
         let table = $("table");
-        // console.log(table)
         $("table").on('click', "td", function(){
             let col = $(this).index();
-            let allTr = $("table tr");
+            let currentRow = $(this).parent().index();
+            let allTr = $("table tr");        
             $(allTr.children()).removeClass("active");
             $("table tr").removeClass("active");
-            // let tbSize = Math.sqrt(allTr.length)
-            // let currentRow = $(this).parent().index();
-            // let currentCol = $(this).index();
-            // console.log($(table.children()[1]).children()[0])
             allTr.each(function(idx, elem){ //loop trough all tr and put active class to the td's in the active column
                 $($(this).children()[col]).toggleClass("active");
             })
