@@ -59,9 +59,9 @@
             values = output.values;
             tablePop(values);
             checkSudoku(size, values);
-
             validateRowMath(values);
             validateColMath(values);
+            // validateBoxMath(values, size);
 
             randomColor = new Array(size);
             for(let i = 0; i < randomColor.length; i++){
@@ -231,6 +231,29 @@
         };
         if(sudokuStatus){console.log("No errors in Columns.")};
     }
+
+    // function validateBoxMath(values, size){
+    //     let boxSet = new Set();
+    //     let boxFlag = true;
+    //     for(let iRow = 0; iRow < values.length; iRow++){
+    //         for(let iCol = 0; iCol < values.length; iCol++){
+    //             const rowNumber = values[iCol];
+    //             const columnNumber = values[iCol][iRow];
+    //             const boxNumber = values[3 * Math.floor(iRow / 3) + Math.floor(iCol / 3)][((iRow * 3) % 9) + (iCol % 3)];
+
+    //             if(boxNumber !== "."){
+    //                 if(boxSet.has(boxNumber)){
+    //                     console.log(`Number ${boxNumber} is repeated in box. Position: Row - ${3 * Math.floor(iRow / 3) + Math.floor(iCol / 3)} | Column - ${((iRow * 3) % 9) + (iCol % 3)}`);
+    //                     boxFlag = false;
+    //                 }else{
+    //                     boxSet.add(boxNumber)
+    //                 }
+    //             }
+    //         }
+    //         boxSet.clear();
+    //     }
+    //     if(boxFlag){console.log("No repeated nums in boxes.")};
+    // }
 
     $(document).ready(function(){
         let table = $("table");
