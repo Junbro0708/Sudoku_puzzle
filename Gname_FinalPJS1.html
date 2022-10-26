@@ -43,14 +43,18 @@
         height: 70vh;
         left: 55%;
         top: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         overflow: hidden;
         position: absolute;
         transform: translate(-50%, -50%);
       }
 
       table {
-        width: 100%;
-        height: 100%;
+        width: 50vh;
+        height: 50vh;
         color: darkgoldenrod;
         font-family: "Nabla", cursive;
         border-collapse: collapse;
@@ -244,7 +248,7 @@
     let loadJson = () => {
       const xmlHTTP = new XMLHttpRequest();
       xmlHTTP.onload = function () {
-        let output = JSON.parse(this.responseText)[0]; //You can change the puzzle with an index
+        let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
         size = output.size;
         values = output.values;
         tablePop(values);
