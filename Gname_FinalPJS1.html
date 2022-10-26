@@ -19,7 +19,7 @@
       }
 
       body {
-        background-image: url(img/fresh.png);
+        background-image: url(img/bg.png);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -34,7 +34,7 @@
       }
 
       .table-container {
-        background-image: url(img/frames-copy.png);
+        background-image: url(/img/frames.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -45,14 +45,13 @@
         top: 50%;
         overflow: hidden;
         position: absolute;
-
         transform: translate(-50%, -50%);
       }
 
       table {
         width: 100%;
         height: 100%;
-        color: darkgrey;
+        color: darkgoldenrod;
         font-family: "Nabla", cursive;
         border-collapse: collapse;
         text-align: center;
@@ -61,7 +60,6 @@
         flex-direction: column;
         position: absolute;
         justify-content: center;
-        /* border: 4px solid rgb(66, 144, 111); */
       }
 
       td {
@@ -73,15 +71,17 @@
       }
 
       h2 {
+        width: 100%;
+        padding-left: 10%;
+        align-items: center;
         text-align: center;
         justify-content: center;
         padding-top: 2%;
         font-family: "Nabla", cursive;
-
+        font-size: 30px;
         position: absolute;
       }
       #validate {
-        border: 1px solid red;
         position: relative;
         border: 0px transparent;
         padding: 2%;
@@ -91,7 +91,6 @@
         background-color: transparent;
         left: 42%;
         top: 91%;
-        z-index: 12;
       }
       #validate:hover {
         cursor: pointer;
@@ -103,8 +102,8 @@
         height: 30vh;
         width: 12%;
         position: absolute;
-        top: 46%;
-        left: 20%;
+        top: 45%;
+        left: 19%;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -189,7 +188,7 @@
         cursor: pointer;
       }
       #start {
-        color: white;
+        color: gold;
         background-color: black;
         height: 100vh;
         width: 100%;
@@ -221,12 +220,6 @@
     </div>
   </body>
   <script>
-    //start button to enter the website
-    $("#start").on("click", (e) => {
-      $("#start").css("display", "none");
-      $(e.target).attr("disabled", true);
-    });
-
     let size, values;
     let h2EL = document.querySelector("h2");
     let randomColor;
@@ -251,7 +244,7 @@
     let loadJson = () => {
       const xmlHTTP = new XMLHttpRequest();
       xmlHTTP.onload = function () {
-        let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
+        let output = JSON.parse(this.responseText)[0]; //You can change the puzzle with an index
         size = output.size;
         values = output.values;
         tablePop(values);
@@ -450,9 +443,14 @@
       let sudoku = document.querySelector("table").children;
       for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
-          sudoku[i].children[j].style.backgroundColor = "white";
+          sudoku[i].children[j].style.backgroundColor = "transparent";
         }
       }
+    }
+
+    //sudoku size as per screen size
+    function sizeChg(size) {
+      let sudoku = document.querySelector("table").children;
     }
 
     //Button
@@ -468,6 +466,7 @@
       }
       $(e.target).attr("disabled", true);
     });
+
     $("#checkrow").on("click", () => {
       initialize(size);
       checkExactRow(size);
@@ -492,6 +491,12 @@
     });
     $("#reset").on("click", () => {
       initialize(size);
+    });
+
+    //start button to enter the website
+    $("#start").on("click", (e) => {
+      $("#start").css("display", "none");
+      $(e.target).attr("disabled", true);
     });
   </script>
 </html>
