@@ -4,15 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>Psudkocoders</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Nabla&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap");
       @font-face {
         font-family: "myFont";
-        src: url("/Sudoku_puzzle/img/Arctic_Regular.ttf");
+        src: url("img/Arctic_Regular.ttf");
       }
       * {
         margin: 0;
@@ -20,7 +19,7 @@
       }
 
       body {
-        background-image: url(/Sudoku_puzzle/img/fresh.png);
+        background-image: url(img/fresh.png);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -29,42 +28,45 @@
         align-items: center;
         width: 100vw;
         height: 100vh;
+        overflow: hidden;
         position: relative;
         z-index: 4;
       }
 
       .table-container {
-        background-image: url(/Sudoku_puzzle/img/frames-copy.png);
+        background-image: url(img/frames-copy.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
         overflow: auto;
-        width: 40%;
-        height: 65%;
+        width: 70vh;
+        height: 70vh;
         left: 55%;
         top: 50%;
+        overflow: hidden;
         position: absolute;
+
         transform: translate(-50%, -50%);
       }
 
       table {
-        width: 60%;
-        overflow: hidden;
+        width: 100%;
+        height: 100%;
         color: darkgrey;
         font-family: "Nabla", cursive;
         border-collapse: collapse;
         text-align: center;
-        top: 17%;
-        left: 20%;
-        display: inline-table;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
         position: absolute;
-        border: 4px solid rgb(66, 144, 111);
-        font-size: 22px;
+        justify-content: center;
+        /* border: 4px solid rgb(66, 144, 111); */
       }
 
       td {
         width: 25px;
-        height: 25px;
+        height: 15px;
         border: solid 1px;
         border-collapse: collapse;
         text-align: center;
@@ -80,7 +82,7 @@
       }
       #validate {
         border: 1px solid red;
-        position: absolute;
+        position: relative;
         border: 0px transparent;
         padding: 2%;
         color: gold;
@@ -89,6 +91,7 @@
         background-color: transparent;
         left: 42%;
         top: 91%;
+        z-index: 12;
       }
       #validate:hover {
         cursor: pointer;
@@ -102,7 +105,6 @@
         position: absolute;
         top: 46%;
         left: 20%;
-
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -202,9 +204,6 @@
   </head>
 
   <body>
-    <!-- <div data-aos="fade-right">
-
-    </div> -->
     <button id="start">Start</button>
 
     <div class="table-container">
@@ -222,7 +221,6 @@
     </div>
   </body>
   <script>
-    // AOS.init();
     //start button to enter the website
     $("#start").on("click", (e) => {
       $("#start").css("display", "none");
@@ -253,7 +251,7 @@
     let loadJson = () => {
       const xmlHTTP = new XMLHttpRequest();
       xmlHTTP.onload = function () {
-        let output = JSON.parse(this.responseText)[1]; //You can change the puzzle with an index
+        let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
         size = output.size;
         values = output.values;
         tablePop(values);
@@ -496,5 +494,4 @@
       initialize(size);
     });
   </script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </html>
