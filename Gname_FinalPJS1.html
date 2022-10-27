@@ -1,40 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psudkocoders</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <style>
-        body{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        td{
-            width: 40px;
-            height: 40px;
-            border: solid 1px;
-            border-collapse: collapse;
-            text-align: center;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Nabla&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap");
+      @font-face {
+        font-family: "myFont";
+        src: url("img/Arctic_Regular.ttf");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-image: url(img/bg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+        z-index: 4;
+      }
+
+      .table-container {
+        background-image: url(/img/frames.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        overflow: auto;
+        width: 70vh;
+        height: 70vh;
+        left: 55%;
+        top: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
+
+      table {
+        width: 50vh;
+        height: 50vh;
+        color: darkgoldenrod;
+        font-family: "Nabla", cursive;
+        border-collapse: collapse;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        justify-content: center;
+        /* outline: 5px solid rgb(66, 144, 111); */
+      }
+
+      td {
+        width: 24px;
+        height: 10px;
+        border: solid 1px;
+        border-collapse: collapse;
+        text-align: center;
+        /* font-size: 9px; */
+      }
+
+      h2 {
+        width: 100%;
+        padding-left: 10%;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding-top: 2%;
+        font-family: "Nabla", cursive;
+        font-size: 30px;
+        position: absolute;
+      }
+      #validate {
+        position: relative;
+        border: 0px transparent;
+        padding: 2%;
+        color: gold;
+        font-family: "myFont";
+        font-size: 18px;
+        background-color: transparent;
+        /* left: 42%; */
+        top: 44%;
+      }
+      #validate:hover {
+        cursor: pointer;
+        color: red;
+      }
+      .checkbtns {
+        display: flex;
+        flex-direction: column;
+        height: 30vh;
+        width: 12%;
+        position: absolute;
+        top: 45%;
+        left: 19%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        line-height: 2.5;
+      }
+      #checkrow {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: transparent;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #checkrow:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #checkcol {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: transparent;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #checkcol:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #checkbox {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: transparent;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #checkbox:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #checkrowcolbox {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: transparent;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #checkrowcolbox:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #checkidx {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: transparent;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #checkidx:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #reset {
+        padding: 2%;
+        font-family: "myFont";
+        font-size: 16px;
+        background-color: #ae9752;
+        border: 0px transparent;
+        color: #614021;
+        font-weight: 600;
+      }
+      #reset:hover {
+        color: red;
+        cursor: pointer;
+      }
+      #start {
+        color: gold;
+        background-color: black;
+        height: 100vh;
+        width: 100%;
+        padding: 2%;
+        font-family: "myFont";
+        position: fixed;
+        z-index: 10;
+        font-size: 46px;
+        border: 0px transparent;
+        cursor: pointer;
+      }
     </style>
-</head>
-<body>
-    <table></table>
-    <button id="validate">Validate</button>
-    <h2 style="display: none;"></h2>
-    <div class="checkbtns" style="display: none;">
-        <button id="checkrow">Check the wrong Row</button>
-        <button id="checkcol">Check the wrong Column</button>
-        <button id="checkbox">Check the wrong Box</button>
-        <button id="checkrowcolbox">Check the wrong Row & Column & Box</button>
-        <button id="checkidx">Check the wrong indexs</button>
-        <button id="reset">Reset</button>
+  </head>
+
+  <body>
+    <button id="start">Start</button>
+
+    <div class="table-container">
+      <table></table>
+      <button id="validate">Validate</button>
     </div>
-</body>
-<script>
+    <h2 style="display: none"></h2>
+    <div class="checkbtns" style="display: none">
+      <button id="checkrow">WRONG ROW</button>
+      <button id="checkcol">WRONG COLUMN</button>
+      <button id="checkbox">WRONG BOX</button>
+      <button id="checkrowcolbox">EVERTYTHING WRONG</button>
+      <button id="checkidx">WRONG INDEX</button>
+      <button id="reset">RESET</button>
+    </div>
+  </body>
+  <script>
     let size, values;
     let h2EL = document.querySelector("h2");
     let randomColor;
@@ -44,247 +235,274 @@
     let wrongBox = new Set();
 
     let tablePop = (values) => {
-        const table = document.querySelector("table");
-        for(let rowidx in values){
-            let tr = document.createElement("tr");
-            for(let colIdx in values[rowidx]){
-                let td = document.createElement("td");
-                td.innerHTML = values[rowidx][colIdx];
-                tr.appendChild(td);
-            }
-            table.appendChild(tr);
+      const table = document.querySelector("table");
+      for (let rowidx in values) {
+        let tr = document.createElement("tr");
+        for (let colIdx in values[rowidx]) {
+          let td = document.createElement("td");
+          td.innerHTML = values[rowidx][colIdx];
+          tr.appendChild(td);
         }
-    }
+        table.appendChild(tr);
+      }
+    };
 
-    let loadJson = () =>{
-        const xmlHTTP = new XMLHttpRequest();
-        xmlHTTP.onload = function(){
-            let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
-            size = output.size;
-            values = output.values;
-            tablePop(values);
-            checkSudoku(size, values);
-
-            designSudoku(size);
-        }
-        xmlHTTP.open("GET","./source.json",true);
-        xmlHTTP.send();
-    }
+    let loadJson = () => {
+      const xmlHTTP = new XMLHttpRequest();
+      xmlHTTP.onload = function () {
+        let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
+        size = output.size;
+        values = output.values;
+        tablePop(values);
+        checkSudoku(size, values);
+        designSudoku(size);
+      };
+      xmlHTTP.open("GET", "./source.json", true);
+      xmlHTTP.send();
+    };
     loadJson();
 
     // Check validate Columns
-    function checkValColumns(columnIdx, sudokuArray, size){
-        let nums = new Map();
-        let flag = false;
-        for(let i = 0; i < size; i++){
-            if(sudokuArray[columnIdx][i] != 0){
-                if(nums.has(sudokuArray[columnIdx][i])){
-                    wrongIdx.set(`${nums.get(sudokuArray[columnIdx][i]).columnIdx},${nums.get(sudokuArray[columnIdx][i]).i}`, sudokuArray[columnIdx][i]);
-                    wrongIdx.set(`${columnIdx},${i}`, sudokuArray[columnIdx][i]);
-                    wrongCol.add(columnIdx);
-                    flag = true;
-                }else{
-                    nums.set(sudokuArray[columnIdx][i], {columnIdx, i})
-                }
-            }
+    function checkValColumns(columnIdx, sudokuArray, size) {
+      let nums = new Map();
+      let flag = false;
+      for (let i = 0; i < size; i++) {
+        if (sudokuArray[columnIdx][i] != 0) {
+          if (nums.has(sudokuArray[columnIdx][i])) {
+            wrongIdx.set(
+              `${nums.get(sudokuArray[columnIdx][i]).columnIdx},${
+                nums.get(sudokuArray[columnIdx][i]).i
+              }`,
+              sudokuArray[columnIdx][i]
+            );
+            wrongIdx.set(`${columnIdx},${i}`, sudokuArray[columnIdx][i]);
+            wrongCol.add(columnIdx);
+            flag = true;
+          } else {
+            nums.set(sudokuArray[columnIdx][i], { columnIdx, i });
+          }
         }
-        if(flag) return true;
-        else return false;
+      }
+      if (flag) return true;
+      else return false;
     }
-    
+
     //Check validate Rows
-    function checkValRows(rowIdx, sudokuArray, size){
-        let nums = new Map();
-        let flag = false;
-        for(let i = 0; i < size; i++){
-            if(sudokuArray[i][rowIdx] != 0){
-                if(nums.has(sudokuArray[i][rowIdx])){
-                    wrongIdx.set(`${nums.get(sudokuArray[i][rowIdx]).i},${nums.get(sudokuArray[i][rowIdx]).rowIdx}`, sudokuArray[i][rowIdx]);
-                    wrongIdx.set(`${i},${rowIdx}`, sudokuArray[i][rowIdx]);
-                    wrongRow.add(rowIdx);
-                    flag = true;
-                }else{
-                    nums.set(sudokuArray[i][rowIdx], {i, rowIdx});
-                }
-            }
+    function checkValRows(rowIdx, sudokuArray, size) {
+      let nums = new Map();
+      let flag = false;
+      for (let i = 0; i < size; i++) {
+        if (sudokuArray[i][rowIdx] != 0) {
+          if (nums.has(sudokuArray[i][rowIdx])) {
+            wrongIdx.set(
+              `${nums.get(sudokuArray[i][rowIdx]).i},${
+                nums.get(sudokuArray[i][rowIdx]).rowIdx
+              }`,
+              sudokuArray[i][rowIdx]
+            );
+            wrongIdx.set(`${i},${rowIdx}`, sudokuArray[i][rowIdx]);
+            wrongRow.add(rowIdx);
+            flag = true;
+          } else {
+            nums.set(sudokuArray[i][rowIdx], { i, rowIdx });
+          }
         }
-        if(flag) return true;
-        else return false;
+      }
+      if (flag) return true;
+      else return false;
     }
 
     // Check validate Boxes
-    function checkValBoxes(columnIdx, rowIdx, sudokuArray, size){
-        boxXIdx = Math.floor(columnIdx / Math.sqrt(size));
-        boxYIdx = Math.floor(rowIdx / Math.sqrt(size));
-        let nums = new Map();
-        let flag = false;
-        for(let i = 0; i < Math.sqrt(size); i++){
-            for(let j = 0; j < Math.sqrt(size); j++){
-                let x = i + (Math.sqrt(size) * boxXIdx);
-                let y = j + (Math.sqrt(size) * boxYIdx);
-                if(sudokuArray[x][y] != 0){
-                    if(nums.has(sudokuArray[x][y])){
-                        wrongIdx.set(`${nums.get(sudokuArray[x][y]).x},${nums.get(sudokuArray[x][y]).y}`, sudokuArray[x][y]);
-                        wrongIdx.set(`${x},${y}`, sudokuArray[x][y]);
-                        wrongBox.add({x, y})
-                        flag = true;
-                    }else{
-                        nums.set(sudokuArray[x][y], {x, y});
-                    }
-                }
+    function checkValBoxes(columnIdx, rowIdx, sudokuArray, size) {
+      boxXIdx = Math.floor(columnIdx / Math.sqrt(size));
+      boxYIdx = Math.floor(rowIdx / Math.sqrt(size));
+      let nums = new Map();
+      let flag = false;
+      for (let i = 0; i < Math.sqrt(size); i++) {
+        for (let j = 0; j < Math.sqrt(size); j++) {
+          let x = i + Math.sqrt(size) * boxXIdx;
+          let y = j + Math.sqrt(size) * boxYIdx;
+          if (sudokuArray[x][y] != 0) {
+            if (nums.has(sudokuArray[x][y])) {
+              wrongIdx.set(
+                `${nums.get(sudokuArray[x][y]).x},${
+                  nums.get(sudokuArray[x][y]).y
+                }`,
+                sudokuArray[x][y]
+              );
+              wrongIdx.set(`${x},${y}`, sudokuArray[x][y]);
+              wrongBox.add({ x, y });
+              flag = true;
+            } else {
+              nums.set(sudokuArray[x][y], { x, y });
             }
+          }
         }
-        if(flag) return true;
-        else return false;
+      }
+      if (flag) return true;
+      else return false;
     }
 
     // Check All validate (Columns, Rows, Boxes)
-    function checkAllValidate(columnIdx, rowIdx, sudokuArray, size){
-        let flag = false;
-        if(checkValColumns(columnIdx, sudokuArray, size)){
-            flag = true;
-        }
-        if(checkValRows(rowIdx, sudokuArray, size)){
-            flag = true;
-        }
-        if(checkValBoxes(columnIdx, rowIdx, sudokuArray, size)){
-            flag = true;
-        }
-        if(flag) return true;
-        else return false;
+    function checkAllValidate(columnIdx, rowIdx, sudokuArray, size) {
+      let flag = false;
+      if (checkValColumns(columnIdx, sudokuArray, size)) {
+        flag = true;
+      }
+      if (checkValRows(rowIdx, sudokuArray, size)) {
+        flag = true;
+      }
+      if (checkValBoxes(columnIdx, rowIdx, sudokuArray, size)) {
+        flag = true;
+      }
+      if (flag) return true;
+      else return false;
     }
 
     // Check if the array is right
-    function checkSudoku(size, sudokuArray){
-        let flag = false;
-        for(let i = 0; i < sudokuArray.length; i++){
-            for(let j = 0; j < sudokuArray.length; j++){
-                if(checkAllValidate(i, j, sudokuArray, size)){
-                    h2EL.innerText = "This is wrong sudoku puzzle.";
-                    flag = true;
-                }
-            }
+    function checkSudoku(size, sudokuArray) {
+      let flag = false;
+      for (let i = 0; i < sudokuArray.length; i++) {
+        for (let j = 0; j < sudokuArray.length; j++) {
+          if (checkAllValidate(i, j, sudokuArray, size)) {
+            h2EL.innerText = "This is wrong sudoku puzzle.";
+            flag = true;
+          }
         }
-        if(!flag) h2EL.innerText = "This is the answer of the puzzle.";
+      }
+      if (!flag) h2EL.innerText = "This is the answer of the puzzle.";
     }
 
     // design looking like more sudoku
-    function designSudoku(size){
-        let sudoku = document.querySelector("table").children;
-        let tempRow = 1;
-        let tempCol = 1;
-        for(let i = 0; i < sudoku.length; i++){
-            if((tempRow == Math.sqrt(size)) && i != sudoku.length-1){
-                for(let j = 0; j < sudoku[i].children.length; j++){
-                    sudoku[i].children[j].style.borderBottom = "solid 5px black";
-                }
-                tempRow = 0;
-            }
-            for(let j = 0; j < sudoku[i].children.length; j++){
-                if((tempCol == Math.sqrt(size)) && j != sudoku.length-1){
-                    sudoku[i].children[j].style.borderRight = "solid 5px black";
-                    tempCol = 0;
-                }
-                tempCol++;
-            }
-            tempCol = 1;
-            tempRow++;
+    function designSudoku(size) {
+      let sudoku = document.querySelector("table").children;
+      let tempRow = 1;
+      let tempCol = 1;
+      for (let i = 0; i < sudoku.length; i++) {
+        if (tempRow == Math.sqrt(size) && i != sudoku.length - 1) {
+          for (let j = 0; j < sudoku[i].children.length; j++) {
+            sudoku[i].children[j].style.borderBottom =
+              "solid 5px rgb(66, 144, 111)";
+          }
+          tempRow = 0;
         }
-
-
+        for (let j = 0; j < sudoku[i].children.length; j++) {
+          if (tempCol == Math.sqrt(size) && j != sudoku.length - 1) {
+            sudoku[i].children[j].style.borderRight =
+              "solid 5px rgb(66, 144, 111)";
+            tempCol = 0;
+          }
+          tempCol++;
+        }
+        tempCol = 1;
+        tempRow++;
+      }
     }
-    
+
     //Check exact indexs for the wrong numbers
-    function checkExactIndexs(size){
-        randomColor = new Array(size);
-            for(let i = 0; i < randomColor.length; i++){
-            randomColor[i] = "#" + Math.floor(Math.random()*16777215).toString(16);
-            }
-        let sudoku = document.querySelector("table").children;
-        wrongIdx.forEach((val, idx)=>{
-            let x = idx.split(",")[0];
-            let y = idx.split(",")[1];
-            sudoku[x].children[y].style.backgroundColor = randomColor[val-1];
-        })
+    function checkExactIndexs(size) {
+      randomColor = new Array(size);
+      for (let i = 0; i < randomColor.length; i++) {
+        randomColor[i] =
+          "#" + Math.floor(Math.random() * 16777215).toString(16);
+      }
+      let sudoku = document.querySelector("table").children;
+      wrongIdx.forEach((val, idx) => {
+        let x = idx.split(",")[0];
+        let y = idx.split(",")[1];
+        sudoku[x].children[y].style.backgroundColor = randomColor[val - 1];
+      });
     }
 
     //Check exact Column and Row for the wrong numbers
-    function checkExactCol(size){
-        let sudoku = document.querySelector("table").children;
-        wrongCol.forEach((val)=>{
-            for(let i = 0; i < size; i++){
-                sudoku[val].children[i].style.backgroundColor = "red";
-            }
-        })
-    }
-    function checkExactRow(size){
-        let sudoku = document.querySelector("table").children;
-        wrongRow.forEach((val)=>{
-            for(let i = 0; i < size; i++){
-                sudoku[i].children[val].style.backgroundColor = "red";
-            }
-        })
-    }
-    function checkExactBox(size){
-        let sudoku = document.querySelector("table").children;
-        wrongBox.forEach((val)=>{
-            boxXIdx = Math.floor(val.x / Math.sqrt(size));
-            boxYIdx = Math.floor(val.y / Math.sqrt(size));
-            for(let i = 0; i < Math.sqrt(size); i++){
-                for(let j = 0; j < Math.sqrt(size); j++){
-                    let x = i + (Math.sqrt(size) * boxXIdx);
-                    let y = j + (Math.sqrt(size) * boxYIdx);
-                    sudoku[x].children[y].style.backgroundColor = "red";
-                }
-            }
-        })
-    }
-    function initialize(size){
-        let sudoku = document.querySelector("table").children;
-        for(let i = 0; i < size; i ++){
-            for(let j = 0; j < size; j++){
-                sudoku[i].children[j].style.backgroundColor = "white";
-            }
+    function checkExactCol(size) {
+      let sudoku = document.querySelector("table").children;
+      wrongCol.forEach((val) => {
+        for (let i = 0; i < size; i++) {
+          sudoku[val].children[i].style.backgroundColor = "red";
         }
+      });
     }
-    
+    function checkExactRow(size) {
+      let sudoku = document.querySelector("table").children;
+      wrongRow.forEach((val) => {
+        for (let i = 0; i < size; i++) {
+          sudoku[i].children[val].style.backgroundColor = "red";
+        }
+      });
+    }
+    function checkExactBox(size) {
+      let sudoku = document.querySelector("table").children;
+      wrongBox.forEach((val) => {
+        boxXIdx = Math.floor(val.x / Math.sqrt(size));
+        boxYIdx = Math.floor(val.y / Math.sqrt(size));
+        for (let i = 0; i < Math.sqrt(size); i++) {
+          for (let j = 0; j < Math.sqrt(size); j++) {
+            let x = i + Math.sqrt(size) * boxXIdx;
+            let y = j + Math.sqrt(size) * boxYIdx;
+            sudoku[x].children[y].style.backgroundColor = "red";
+          }
+        }
+      });
+    }
+    function initialize(size) {
+      let sudoku = document.querySelector("table").children;
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          sudoku[i].children[j].style.backgroundColor = "transparent";
+        }
+      }
+    }
+
+    //sudoku size as per screen size
+    function sizeChg(size) {
+      let sudoku = document.querySelector("table").children;
+    }
+
     //Button
-    $("#validate").on("click", (e)=>{
-        $(h2EL).css("display", "block");
-        switch($(h2EL).text()){
-            case "This is the answer of the puzzle.":
-                $($(".checkbtns")[0]).css("display", "none");
-            break;
-            case "This is wrong sudoku puzzle.":
-                $($(".checkbtns")[0]).css("display", "block");
-            break;
-        }
-        $(e.target).attr("disabled", true);
-    })
-    $("#checkrow").on("click", ()=>{
-        initialize(size);
-        checkExactRow(size);
-    })
-    $("#checkcol").on("click", ()=>{
-        initialize(size);
-        checkExactCol(size);
-    })
-    $("#checkbox").on("click", ()=>{
-        initialize(size);
-        checkExactBox(size);
-    })
-    $("#checkrowcolbox").on("click", ()=>{
-        initialize(size);
-        checkExactRow(size);
-        checkExactCol(size);
-        checkExactBox(size);
-    })
-    $("#checkidx").on("click", ()=>{
-        initialize(size);
-        checkExactIndexs(size);
-    })
-    $("#reset").on("click", ()=>{
-        initialize(size);
-    })
-</script>
+    $("#validate").on("click", (e) => {
+      $(h2EL).css("display", "block");
+      switch ($(h2EL).text()) {
+        case "This is the answer of the puzzle.":
+          $($(".checkbtns")[0]).css("display", "none");
+          break;
+        case "This is wrong sudoku puzzle.":
+          $($(".checkbtns")[0]).css("display", "block");
+          break;
+      }
+      $(e.target).attr("disabled", true);
+    });
+
+    $("#checkrow").on("click", () => {
+      initialize(size);
+      checkExactRow(size);
+    });
+    $("#checkcol").on("click", () => {
+      initialize(size);
+      checkExactCol(size);
+    });
+    $("#checkbox").on("click", () => {
+      initialize(size);
+      checkExactBox(size);
+    });
+    $("#checkrowcolbox").on("click", () => {
+      initialize(size);
+      checkExactRow(size);
+      checkExactCol(size);
+      checkExactBox(size);
+    });
+    $("#checkidx").on("click", () => {
+      initialize(size);
+      checkExactIndexs(size);
+    });
+    $("#reset").on("click", () => {
+      initialize(size);
+    });
+
+    //start button to enter the website
+    $("#start").on("click", (e) => {
+      $("#start").css("display", "none");
+      $(e.target).attr("disabled", true);
+    });
+  </script>
 </html>
