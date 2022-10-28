@@ -250,7 +250,7 @@
     let loadJson = () => {
       const xmlHTTP = new XMLHttpRequest();
       xmlHTTP.onload = function () {
-        let output = JSON.parse(this.responseText)[2]; //You can change the puzzle with an index
+        let output = JSON.parse(this.responseText)[1]; //You can change the puzzle with an index
         size = output.size;
         values = output.values;
         tablePop(values);
